@@ -3,10 +3,8 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path');
-
 const cors = require('cors');
 app.use(cors());
-
 const app = express();
 const PORT = process.env.PORT || 3000;
 
