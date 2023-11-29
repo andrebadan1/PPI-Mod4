@@ -2,11 +2,13 @@ const express = require('express');
 const session = require('express-session');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const path = require('path');
 const cors = require('cors');
-app.use(cors());
+const path = require('path');
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors({ origin: '*' }));
 
 app.use(express.static('public'));
 app.use(bodyParser.json());
