@@ -4,6 +4,9 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+const cors = require('cors');
+app.use(cors());
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
@@ -25,9 +28,9 @@ app.get('/', (req, res) => {
     res.redirect('/login');
 });
 
-// Rota para a página de login
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/login.html'));
+// Rota para login
+app.post('/login', (req, res) => {
+    // ...
 });
 
 // Rota para a página de cadastro
