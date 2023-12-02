@@ -2,7 +2,7 @@ function login() {
     // Obtenha os valores dos campos de entrada
     var username = document.getElementById('username').value;
     var password = document.getElementById('password').value;
-
+  
     // Faça uma requisição ao servidor para processar o login
     fetch('/login', {
         method: 'POST',
@@ -23,6 +23,6 @@ function login() {
     })
     .catch(error => {
         console.error('Erro no login:', error);
-        alert('Erro no login. Tente novamente.');
+        alert('Erro no login. Tente novamente. Consulte o console para obter mais informações.');
     });
-}
+  }
