@@ -17,32 +17,22 @@ app.use(session({
   cookie: { maxAge: 30 * 24 * 60 * 60 * 1000 } // 30 dias de validade
 }));
 
-// Dados temporários para simular armazenamento interno
-const usuarios = [];
+// Dados temporários para simular um banco de dados
+const usuarios = [
+  { username: 'usuario', password: 'senha' }
+];
 
-// Rota padrão (rota raiz) redireciona para a página de login
-app.get('/', (req, res) => {
-    res.redirect('/login');
-});
-
-// Rota para login
-app.post('/login', (req, res) => {
-    // ...
-});
-
-// Rota para a página de cadastro
-app.get('/cadastro', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/cadastro.html'));
-});
+// Função auxiliar para verificar as credenciais
+function verificarCredenciais(username, password) {
+  return usuarios.some(user => user.username === username && user.password === password);
+}
 
 // Rota para login
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
     // Verificar as credenciais
-    const usuarioEncontrado = usuarios.find(user => user.username === username && user.password === password);
-
-    if (usuarioEncontrado) {
+    if (verificarCredenciais(username, password)) {
         req.session.user = username;
 
         // Configurar cookies
@@ -56,27 +46,41 @@ app.post('/login', (req, res) => {
         res.json({ success: false });
     }
 });
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, '../public/login.html'));
+
+// Rota para obter informações do usuário logado
+app.get('/infoUsuario', (req, res) => {
+    const nomeUsuario = req.session.user || '';
+    const ultimoAcesso = req.cookies.ultimoAcesso || '';
+
+    res.json({ nomeUsuario, ultimoAcesso });
 });
-// Rota para cadastrar
+
+// Rota para o dashboard
+app.get('/dashboard', (req, res) => {
+    // Renderizar a página HTML do dashboard
+    res.sendFile(__dirname + '/../public/dashboard.html');
+});
+
+// Rota para cadastro
 app.post('/cadastrar', (req, res) => {
-    const { username, password } = req.body;
+    const { nome /*, outros campos */ } = req.body;
 
-    // Verificar se o usuário já existe
-    const usuarioExistente = usuarios.find(user => user.username === username);
+    // Salvar dados no banco de dados ou em algum outro armazenamento
+    // ...
 
-    if (usuarioExistente) {
-        res.json({ success: false, message: 'Usuário já existe.' });
-    } else {
-        // Adicionar o novo usuário à lista
-        usuarios.push({ username, password });
+    res.json({ success: true });
+});
 
-        // Indicar sucesso no cadastro
-        res.json({ success: true, message: 'Cadastro realizado com sucesso. Você será redirecionado para o login.', username });
-    }
+// Rota para obter dados da tabela
+app.get('/dadosTabela', (req, res) => {
+    // Obter dados do banco de dados ou outro armazenamento
+    const dados = [
+        { id: 1, nome: 'Exemplo 1' },
+        { id: 2, nome: 'Exemplo 2' },
+        // Outros dados da tabela
+    ];
+
+    res.json(dados);
 });
 
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
-
-

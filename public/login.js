@@ -1,14 +1,3 @@
-document.addEventListener('DOMContentLoaded', function() {
-    // Verifique se há parâmetros de usuário na URL
-    const urlParams = new URLSearchParams(window.location.search);
-    const usernameParam = urlParams.get('username');
-
-    // Se houver, preencha automaticamente o campo de usuário
-    if (usernameParam) {
-        document.getElementById('username').value = decodeURIComponent(usernameParam);
-    }
-});
-
 function login() {
     // Obtenha os valores dos campos de entrada
     var username = document.getElementById('username').value;
