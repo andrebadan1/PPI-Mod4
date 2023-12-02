@@ -1,23 +1,3 @@
-function cadastrar() {
-    // Obter dados do formulário
-    const nome = document.getElementById('nome').value;
-    const curso = document.getElementById('curso').value;
-    const ra = document.getElementById('ra').value;
-
-    // Validar se os campos não estão vazios
-    if (!nome || !curso || !ra) {
-        alert('Preencha todos os campos do formulário.');
-        return;
-    }
-
-    // Adicionar os dados à tabela
-    adicionarLinhaTabela(nome, curso, ra);
-
-    // Limpar os campos do formulário
-    document.getElementById('nome').value = '';
-    document.getElementById('curso').value = '';
-    document.getElementById('ra').value = '';
-}
 
 function adicionarLinhaTabela(nome, curso, ra) {
     // Adicionar uma nova linha à tabela
