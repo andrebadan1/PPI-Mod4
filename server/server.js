@@ -55,20 +55,9 @@ app.get('/infoUsuario', (req, res) => {
     res.json({ nomeUsuario, ultimoAcesso });
 });
 
-// Rota para o dashboard
 app.get('/dashboard', (req, res) => {
-    // Renderizar a página HTML do dashboard
-    res.sendFile(__dirname + '/../public/dashboard.html');
-});
-
-// Rota para cadastro
-app.post('/cadastrar', (req, res) => {
-    const { nome /*, outros campos */ } = req.body;
-
-    // Salvar dados no banco de dados ou em algum outro armazenamento
-    // ...
-
-    res.json({ success: true });
+    // Renderizar a página HTML do dashboard usando o caminho absoluto
+    res.sendFile(path.join(__dirname, '../public/dashboard.html'));
 });
 
 // Rota para obter dados da tabela
